@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -13,6 +14,7 @@ namespace C_Sharp_Bot.Modules
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
+
         [Command("ping")]
         [Summary("Plays ping pong with you.")]
         public async Task Ping()
@@ -24,6 +26,21 @@ namespace C_Sharp_Bot.Modules
         [Summary("Echoes a message.")]
         public Task SayAsync([Remainder] [Summary("The text to echo")] string echo)
             => ReplyAsync(echo);
+
+        [Command("math")]
+        public async Task Calculate([Remainder] string equation)
+        {
+            string result = new DataTable().Compute(equation, null).ToString();
+            //Basically to calculate from the string to find the result
+            if (result == "NaN")
+            {
+                await Context.Channel.SendMessageAsync("Infinity or undefined");
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync(result);
+            }
+        };
     };
 
     public class InfoModule : ModuleBase<SocketCommandContext>

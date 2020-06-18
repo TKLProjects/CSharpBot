@@ -40,6 +40,8 @@ namespace C_Sharp_Bot
 
             await _client.StartAsync();
 
+            await _client.SetGameAsync("with your mom.");
+
             await Task.Delay(-1);
 
         }
